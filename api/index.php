@@ -3,17 +3,16 @@
 $token = '8172423558:AAFO4SygPJzgi1fgwvz4wtzPE8sdQ_e02QU';
 
 // Receber atualização enviada pelo Telegram (POST)
-$update = json_decode(file_get_contents("php://input"), TRUE);
+$update = json_decode(file_get_contents("php://input"), true);
 
-// Verifique se o Telegram enviou uma mensagem
-if (isset($update["message"])) {
-    $chat_id = $update["message"]["chat"]["id"];
-    $text = $update["message"]["text"];
+// Verificar se há mensagem no update
+if (isset($update['message'])) {
+    $chat_id = $update['message']['chat']['id'];
+    $text = $update['message']['text'];
 
-    // Se o texto for "/start", responde "Bot funcionando!"
+    // Se o texto for "/start", responde com "Bot funcionando!"
     if ($text == "/start") {
-        $message = "Bot funcionando!";
-        file_get_contents("https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=" . urlencode($message));
+        file_get_contents("https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=" . urlencode("Bot funcionando!"));
     }
 }
 ?>
